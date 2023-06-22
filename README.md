@@ -147,16 +147,7 @@ curl --location --request GET 'https://hdhkhjufuj.execute-api.us-east-1.amazonaw
         "genero": "male"
     }
 ]
-=======
-Despues de deployar:
 
-```bash
-Deploying aws-project-dev-api to stage dev (us-east-1)
-
-#✔ Service deployed to stack aws-project-dev-api (152s)
-
-curl --location --request GET 'https://hdhkhjufuj.execute-api.us-east-1.amazonaws.com/list'
->>>>>>> 81ed6a6e8179c8b09a4edf5e5f3016e28846978a
 
 - curl --location --request POST 'https://hdhkhjufuj.execute-api.us-east-1.amazonaws.com/create' \
 --header 'Content-Type: application/json' \
