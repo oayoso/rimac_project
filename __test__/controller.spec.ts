@@ -4,7 +4,6 @@ import {RimacRepository} from "../src/repository/RimacRepository";
 import {SwapiModel} from "../src/model/SwapiModel";
 
 describe('Controller', () => {
-    // let putSy;
     test('Register', async ()=> {
         // Prepare
         jest.spyOn(RimacRepository.prototype, 'list').mockImplementation(() => {
