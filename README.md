@@ -60,7 +60,7 @@ Allow: GET, HEAD, OPTIONS
 }
 ```
 
-Estos atributos fueron traducidos para que al momento de obtener(un arreglo) o insertar
+Estos atributos fueron traducidos para que al momento de obtener(un arreglo) o insertar 
 data se utiliza
 ```
 {
