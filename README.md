@@ -16,7 +16,6 @@ $ serverless deploy
 ```
 ### Implementacion
 
-<<<<<<< HEAD
 Para esta este caso se utilizo el endpoint de swapi de people
 donde se tomo como ejemplos los atributos
 
