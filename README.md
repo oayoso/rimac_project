@@ -1,92 +1,185 @@
 <!--
-title: 'AWS Simple HTTP Endpoint example in NodeJS'
-description: 'This template demonstrates how to make a simple HTTP API with Node.js running on AWS Lambda and API Gateway using the Serverless Framework.'
+title: 'Proyecto Typescript/AWS'
+description: 'Este proyecto contiene lambda utilizando Typescript junto a Serverless Framework.'
 layout: Doc
 framework: v3
 platform: AWS
 language: nodeJS
-authorLink: 'https://github.com/serverless'
-authorName: 'Serverless, inc.'
-authorAvatar: 'https://avatars1.githubusercontent.com/u/13742415?s=200&v=4'
 -->
 
-# Serverless Framework Node HTTP API on AWS
-
-This template demonstrates how to make a simple HTTP API with Node.js running on AWS Lambda and API Gateway using the Serverless Framework.
-
-This template does not include any kind of persistence (database). For more advanced examples, check out the [serverless/examples repository](https://github.com/serverless/examples/) which includes Typescript, Mongo, DynamoDB and other examples.
-
-## Usage
+## use
 
 ### Deployment
 
 ```
 $ serverless deploy
 ```
+### Implementacion
 
-After deploying, you should see output similar to:
+Para esta este caso se utilizo el endpoint de swapi de people
+donde se tomo como ejemplos los atributos
 
-```bash
-Deploying aws-node-http-api-project to stage dev (us-east-1)
+``` 
+HTTP 200 OK
+Content-Type: application/json
+Vary: Accept
+Allow: GET, HEAD, OPTIONS
 
-✔ Service deployed to stack aws-node-http-api-project-dev (152s)
-
-endpoint: GET - https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/
-functions:
-  hello: aws-node-http-api-project-dev-hello (1.9 kB)
-```
-
-_Note_: In current form, after deployment, your API is public and can be invoked by anyone. For production deployments, you might want to configure an authorizer. For details on how to do that, refer to [http event docs](https://www.serverless.com/framework/docs/providers/aws/events/apigateway/).
-
-### Invocation
-
-After successful deployment, you can call the created application via HTTP:
-
-```bash
-curl https://xxxxxxx.execute-api.us-east-1.amazonaws.com/
-```
-
-Which should result in response similar to the following (removed `input` content for brevity):
-
-```json
 {
-  "message": "Go Serverless v2.0! Your function executed successfully!",
-  "input": {
-    ...
-  }
+    "name": "Luke Skywalker", 
+    "height": "172", 
+    "mass": "77", 
+    "hair_color": "blond", 
+    "skin_color": "fair", 
+    "eye_color": "blue", 
+    "birth_year": "19BBY", 
+    "gender": "male", 
+    "homeworld": "https://swapi.py4e.com/api/planets/1/", 
+    "films": [
+        "https://swapi.py4e.com/api/films/1/", 
+        "https://swapi.py4e.com/api/films/2/", 
+        "https://swapi.py4e.com/api/films/3/", 
+        "https://swapi.py4e.com/api/films/6/", 
+        "https://swapi.py4e.com/api/films/7/"
+    ], 
+    "species": [
+        "https://swapi.py4e.com/api/species/1/"
+    ], 
+    "vehicles": [
+        "https://swapi.py4e.com/api/vehicles/14/", 
+        "https://swapi.py4e.com/api/vehicles/30/"
+    ], 
+    "starships": [
+        "https://swapi.py4e.com/api/starships/12/", 
+        "https://swapi.py4e.com/api/starships/22/"
+    ], 
+    "created": "2014-12-09T13:50:51.644000Z", 
+    "edited": "2014-12-20T21:17:56.891000Z", 
+    "url": "https://swapi.py4e.com/api/people/1/"
 }
 ```
 
-### Local development
-
-You can invoke your function locally by using the following command:
-
-```bash
-serverless invoke local --function hello
-```
-
-Which should result in response similar to the following:
-
+Estos atributos fueron traducidos para que al momento de obtener(un arreglo) o insertar 
+data se utiliza
 ```
 {
-  "statusCode": 200,
-  "body": "{\n  \"message\": \"Go Serverless v3.0! Your function executed successfully!\",\n  \"input\": \"\"\n}"
+    "nombre": "Luke Skywalker",
+    "altura": "172",
+    "masa": "77",
+    "colorPelo": "blond",
+    "colorPiel": "fair",
+    "colorOjos": "blue",
+    "anioNacimiento": "19BBY",
+    "genero": "male",
+    "mundoMatal": "https://swapi.py4e.com/api/planets/1/",
+    "pelicula": [
+        "https://swapi.py4e.com/api/films/1/", 
+        "https://swapi.py4e.com/api/films/2/", 
+        "https://swapi.py4e.com/api/films/3/", 
+        "https://swapi.py4e.com/api/films/6/", 
+        "https://swapi.py4e.com/api/films/7/"
+    ],
+    "especies": [
+        "https://swapi.py4e.com/api/species/1/"
+    ],
+    "vehiculos": [
+        "https://swapi.py4e.com/api/vehicles/14/", 
+        "https://swapi.py4e.com/api/vehicles/30/"
+    ],
+    "navesEstelares": [
+        "https://swapi.py4e.com/api/starships/12/", 
+        "https://swapi.py4e.com/api/starships/22/"
+    ],
+    "creado": "2014-12-09T13:50:51.644000Z",
+    "editado": "2014-12-20T21:17:56.891000Z",
+    "URL": "https://swapi.py4e.com/api/people/1/"
 }
 ```
 
+Para este caso se esta utilizando:
+```
+DynamoDB donde la Tabla se llama Swapi 
+```
 
-Alternatively, it is also possible to emulate API Gateway and Lambda locally by using `serverless-offline` plugin. In order to do that, execute the following command:
+
+Despues de deployar:
 
 ```bash
-serverless plugin install -n serverless-offline
+Deploying aws-project-dev-api to stage dev (us-east-1)
+
+#✔ Service deployed to stack aws-project-dev-api (152s)
+
+A continuacion los endpoint para consultar para listar o ingresar data son los siguientes
+
+curl --location --request GET 'https://hdhkhjufuj.execute-api.us-east-1.amazonaws.com/list'
+[
+    {
+        "colorPelo": "blond",
+        "nombre": "Luke Skywalker",
+        "masa": "77",
+        "pelicula": [
+            "https://swapi.py4e.com/api/films/1/",
+            "https://swapi.py4e.com/api/films/2/",
+            "https://swapi.py4e.com/api/films/3/",
+            "https://swapi.py4e.com/api/films/6/",
+            "https://swapi.py4e.com/api/films/7/"
+        ],
+        "vehiculos": [
+            "https://swapi.py4e.com/api/vehicles/14/",
+            "https://swapi.py4e.com/api/vehicles/30/"
+        ],
+        "altura": "172",
+        "anioNacimiento": "19BBY",
+        "mundoMatal": "https://swapi.py4e.com/api/planets/1/",
+        "URL": "https://swapi.py4e.com/api/people/1/",
+        "navesEstelares": [
+            "https://swapi.py4e.com/api/starships/12/",
+            "https://swapi.py4e.com/api/starships/22/"
+        ],
+        "colorOjos": "blue",
+        "colorPiel": "fair",
+        "editado": "2014-12-20T21:17:56.891000Z",
+        "especies": [
+            "https://swapi.py4e.com/api/species/1/"
+        ],
+        "creado": "2014-12-09T13:50:51.644000Z",
+        "id": "417eee9d-68a2-4ca4-bfe2-4761afe1da23",
+        "genero": "male"
+    }
+]
+
+- curl --location --request POST 'https://hdhkhjufuj.execute-api.us-east-1.amazonaws.com/create' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "nombre": "Luke Skywalker",
+    "altura": "172",
+    "masa": "77",
+    "colorPelo": "blond",
+    "colorPiel": "fair",
+    "colorOjos": "blue",
+    "anioNacimiento": "19BBY",
+    "genero": "male",
+    "mundoMatal": "https://swapi.py4e.com/api/planets/1/",
+    "pelicula": [
+        "https://swapi.py4e.com/api/films/1/", 
+        "https://swapi.py4e.com/api/films/2/", 
+        "https://swapi.py4e.com/api/films/3/", 
+        "https://swapi.py4e.com/api/films/6/", 
+        "https://swapi.py4e.com/api/films/7/"
+    ],
+    "especies": [
+        "https://swapi.py4e.com/api/species/1/"
+    ],
+    "vehiculos": [
+        "https://swapi.py4e.com/api/vehicles/14/", 
+        "https://swapi.py4e.com/api/vehicles/30/"
+    ],
+    "navesEstelares": [
+        "https://swapi.py4e.com/api/starships/12/", 
+        "https://swapi.py4e.com/api/starships/22/"
+    ],
+    "creado": "2014-12-09T13:50:51.644000Z",
+    "editado": "2014-12-20T21:17:56.891000Z",
+    "URL": "https://swapi.py4e.com/api/people/1/"
+}'
 ```
-
-It will add the `serverless-offline` plugin to `devDependencies` in `package.json` file as well as will add it to `plugins` in `serverless.yml`.
-
-After installation, you can start local emulation with:
-
-```
-serverless offline
-```
-
-To learn more about the capabilities of `serverless-offline`, please refer to its [GitHub repository](https://github.com/dherault/serverless-offline).
